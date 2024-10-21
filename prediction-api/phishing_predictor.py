@@ -29,9 +29,12 @@ class PhishingPredictor:
                     self.model = pickle.load(file)
 
         df = pd.read_json(StringIO(json.dumps(prediction_input)), orient='records')
+        print("Dataframe: ", df)
         y_pred = self.model.predict(df)
+        print("Y prediction: ", y_pred)
         logging.info(y_pred[0])
         status = (y_pred[0] > 0.5)
+        print("Y prediction status: ", status)
         logging.info(type(status))
         # return the prediction outcome as a json message. 200 is HTTP status code 200, indicating successful completion
         return jsonify({'result': str(status)}), 200
