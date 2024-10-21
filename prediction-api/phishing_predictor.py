@@ -37,4 +37,4 @@ class PhishingPredictor:
         print("Y prediction status: ", status)
         logging.info(type(status))
         # return the prediction outcome as a json message. 200 is HTTP status code 200, indicating successful completion
-        return jsonify({'result': str(status)}), 200
+        return jsonify({'result': status}), 200
