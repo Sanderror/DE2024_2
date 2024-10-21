@@ -4,5 +4,4 @@ pandas
 scikit-learn
 tensorflow
 numpy==1.26.4
-pickle
 six
