@@ -33,7 +33,7 @@ def check_phishing():
                 "NoHttps": int(request.form.get("NoHttps"))
             }
         ]
-
+        print("Prediction input: ", prediction_input)
         logging.debug("Prediction input : %s", prediction_input)
 
         # use requests library to execute the prediction service API by sending an HTTP POST request
@@ -42,8 +42,9 @@ def check_phishing():
         # json.loads() method can be used to parse a valid JSON string and convert it into a Python Dictionary.
         predictor_api_url = os.environ['PREDICTOR_API']
         res = requests.post(predictor_api_url, json=json.loads(json.dumps(prediction_input)))
-
+        print("Raw prediction output: ", res)
         prediction_value = res.json()['result']
+        print("Prediction output: ", prediction_value)
         logging.info("Prediction Output : %s", prediction_value)
         return render_template("response_page.html",
                                prediction_variable=prediction_value)
