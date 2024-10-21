@@ -48,8 +48,12 @@ def check_phishing():
         prediction_value = res.json()['result']
         print("Prediction output: ", prediction_value)
         logging.info("Prediction Output : %s", prediction_value)
+        if prediction_value == "True":
+            prediction_value_bool = True
+        else:
+            prediction_value_bool = False
         return render_template("response_page.html",
-                               prediction_variable=prediction_value)
+                               prediction_variable=prediction_value_bool)
 
     else:
         return jsonify(message="Method Not Allowed"), 405  # The 405 Method Not Allowed should be used to indicate
