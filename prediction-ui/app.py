@@ -5,6 +5,8 @@ import logging
 import requests
 from flask import Flask, request, render_template, jsonify
 
+logging.basicConfig(level=logging.DEBUG)
+
 # Flask constructor
 app = Flask(__name__)
 
