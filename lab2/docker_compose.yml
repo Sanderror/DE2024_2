@@ -1,0 +1,42 @@
+services:
+  training_api:
+    build:
+      context: training-api    # jupyter/all-spark-notebook with spark configurations for bigquery and gcs
+    container_name: training_api
+    ports:
+      - "5002:5000"
+    environment:
+      - MODEL_REPO=/usr/src/myapp/models
+    networks:
+      - netowrk-b
+    volumes:
+      - "/home/s_m_schuitemaker/models:/usr/src/myapp/models"  # jovyan is the default user of the image all-spark-notebook:spark-3.1.2. Do not change this
+  prediction_api:
+    build:
+      context: prediction-api
+    container_name: prediction_api
+    depends_on:
+      - training_api
+    ports:
+      - "5001:5000"
+    networks:
+      - network-a
+      - network-b
+    environment:
+      - MODEL_REPO=/usr/src/myapp/models
+    volumes:
+      - "/home/s_m_schuitemaker/models:/usr/src/myapp/models"
+  prediction_ui:
+    build:
+      context: prediction-ui
+    container_name: prediction_ui
+    depends_on:
+      - prediction_api
+    ports:
+      - "5000:5000"
+    networks:
+      - network-a
+    environment:
+      - MODEL_REPO=/usr/src/myapp/models
+    volumes:
+      - "/home/s_m_schuitemaker/models:/usr/src/myapp/models"
