@@ -16,7 +16,7 @@ words = df.where(df.Country == "France")
 words.show(100)
 words = df.where(df.Country == "France").select(
             explode(
-                split(col("Description"), " ")
+                split(col("Description"), " ")
             ).alias("word")
         )
 words.show(100)
